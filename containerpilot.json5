@@ -1,0 +1,10 @@
+{
+  consul: 'localhost:8500',
+  jobs: [
+    {
+      name: 'frontend',
+      exec: 'node /opt/app/',
+      restarts: 'unlimited'
+    }
+  ]
+}

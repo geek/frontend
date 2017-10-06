@@ -1,0 +1,9 @@
+frontend:
+  build: ./
+  restart: always
+  labels:
+    - triton.cns.services=frontend
+  ports:
+    - "80:80"
+  environment:
+    - PORT=80
