@@ -4,13 +4,22 @@
   "description": "",
   "main": "./lib/index.js",
   "keywords": [],
-  "author": "",
+  "author": "wyatt",
   "license": "MPL-2.0",
+  "scripts": {
+    "bundle": "browserify -e ./lib/public/src/ -o ./lib/public/js/bundle.js",
+    "gen-data": "URL=http://localhost:8080 ./gen-data",
+    "start": "PORT=8080 node ./lib"
+  },
   "dependencies": {
     "brule": "2.x.x",
     "end-of-stream": "1.x.x",
     "hapi": "16.x.x",
     "inert": "4.x.x",
     "websocket-stream": "3.x.x"
+  },
+  "devDependencies": {
+    "browserify": "14.x.x",
+    "wreck": "13.x.x"
   }
 }

@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+const Wreck = require('wreck');
+
+const wreck = Wreck.defaults({ baseUrl: `${process.env.URL}` });
+
+
+const sendData = async function (data) {
+  for (let humidity of data.humidity) {
+    try {
+      await wreck.post('/api/humidity', { payload: humidity });
+    } catch (ex) {
+      console.error(ex);
+    }
+  }
+
+  for (let temperature of data.temperature) {
+    try {
+      await wreck.post('/api/temperature', { payload: temperature });
+    } catch (ex) {
+      console.error(ex);
+    }
+  }
+};
+
+const genData = function () {
+  const data = {
+    humidity: [],
+    temperature: []
+  };
+
+  for (let i = 1; i < 4; i++) {
+    data.humidity.push({
+      sensorId: i,
+      timestamp: Date.now(),
+      humidity: Math.floor(Math.random() * 20) + 60
+    });
+
+    data.temperature.push({
+      sensorId: i,
+      timestamp: Date.now(),
+      temperature: Math.floor(Math.random() * 10) + 60
+    });
+  }
+
+  return data;
+};
+
+
+setInterval(async () => {
+  const data = genData();
+  try {
+    await sendData(data);
+  } catch (ex) {
+    console.error(ex);
+  }
+}, 1000);
